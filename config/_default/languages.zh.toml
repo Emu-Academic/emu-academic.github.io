@@ -1,0 +1,24 @@
+disabled = false
+languageCode = "zh"
+languageName = "Chinese"
+weight = 1
+title = "Emu Academic"
+
+[params]
+  displayName = "ZH"
+  isoCode = "zh"
+  rtl = false
+  dateFormat = "2 January 2006"
+  logo = "img/favicon.png"
+  secondaryLogo = "img/favicon.png"
+  description = "Official Website of Emu Academic"
+  copyright = "Copy, _right?_ :thinking_face:"
+
+[params.author]
+  name = "Emu Academic"
+  email = "chitsanfei@emu.ac.cn"
+  image = "img/headshot.png"
+  imageQuality = 96
+  headline = "Tech enthusiasts revolutionizing the world!"
+  bio = "A Group of People Who Aim to Change the World."
+  links = []
