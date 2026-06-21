@@ -5,41 +5,38 @@
   {{ $author := .Site.Params.Author }}
   {{ $recent := where .Site.RegularPages "Section" "posts" | first 6 }}
 
-  {{/* ============ Hero：全宽渐变，突破 body 容器 ============ */}}
-  <section class="ea-hero -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
-    <div class="ea-hero__bg" aria-hidden="true"></div>
-    <div class="ea-hero__inner">
-      {{ with $author.image }}
-        {{ $img := resources.Get . }}
-        {{ if $img }}
-          <img class="ea-hero__avatar" src="{{ ($img.Fill "256x256 q96").RelPermalink }}"
-               alt="{{ $author.name | default $.Site.Title }}" width="128" height="128" loading="eager" decoding="async" />
-        {{ end }}
+  {{/* ============ Hero：居中、克制 ============ */}}
+  <section class="ea-hero">
+    {{ with $author.image }}
+      {{ $img := resources.Get . }}
+      {{ if $img }}
+        <img class="ea-hero__avatar" src="{{ ($img.Fill "256x256 q96").RelPermalink }}"
+             alt="{{ $author.name | default $.Site.Title }}" width="112" height="112" loading="eager" decoding="async" />
       {{ end }}
+    {{ end }}
 
-      <p class="ea-hero__kicker">{{ $author.headline | default .Site.Params.description | emojify }}</p>
-      <h1 class="ea-hero__title">{{ $author.name | default .Site.Title | emojify }}</h1>
-      {{ with $author.bio }}
-        <p class="ea-hero__bio">{{ . | markdownify }}</p>
-      {{ end }}
+    <p class="ea-hero__kicker">{{ $author.headline | default .Site.Params.description | emojify }}</p>
+    <h1 class="ea-hero__title">{{ $author.name | default .Site.Title | emojify }}</h1>
+    {{ with $author.bio }}
+      <p class="ea-hero__bio">{{ . | markdownify }}</p>
+    {{ end }}
 
-      {{/* 社交链接 (在 languages.zh.toml 的 [params.author] links 中配置) */}}
-      {{ with $author.links }}
-        <div class="ea-hero__links">
-          {{ range $links := . }}
-            {{ range $name, $url := $links }}
-              <a class="ea-hero__link" href="{{ $url }}" target="_blank" rel="me noopener noreferrer" aria-label="{{ $name | title }}">
-                {{ partial "icon.html" $name }}
-              </a>
-            {{ end }}
+    {{/* 社交链接 (在 languages.zh.toml 的 [params.author] links 中配置) */}}
+    {{ with $author.links }}
+      <div class="ea-hero__links">
+        {{ range $links := . }}
+          {{ range $name, $url := $links }}
+            <a class="ea-hero__link" href="{{ $url }}" target="_blank" rel="me noopener noreferrer" aria-label="{{ $name | title }}">
+              {{ partial "icon.html" $name }}
+            </a>
           {{ end }}
-        </div>
-      {{ end }}
-
-      <div class="ea-hero__cta">
-        <a class="ea-btn ea-btn--primary" href="{{ "posts" | relURL }}">阅读博客 →</a>
-        <a class="ea-btn ea-btn--ghost" href="{{ "index.xml" | relURL }}">订阅 RSS</a>
+        {{ end }}
       </div>
+    {{ end }}
+
+    <div class="ea-hero__cta">
+      <a class="ea-btn ea-btn--primary" href="{{ "posts" | relURL }}">阅读博客 →</a>
+      <a class="ea-btn ea-btn--ghost" href="{{ "index.xml" | relURL }}">订阅 RSS</a>
     </div>
   </section>
 

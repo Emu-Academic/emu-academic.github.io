@@ -3,7 +3,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish" # UNCOMMENT THIS LINE
-baseURL = "https://emu.ac.cn/"
+baseURL = "https://emu-academic.github.io/"
 defaultContentLanguage = "zh"
 
 pluralizeListTitles = true
