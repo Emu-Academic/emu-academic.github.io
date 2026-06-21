@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <header class="page-head container">
+    <h1 class="reveal">{{ .Title }}</h1>
+    <p class="reveal" data-delay="100">{{ .Data.Pages.Len }} 篇文章</p>
+  </header>
+  <section class="section container">
+    <ul class="grid">
+      {{ range $i, $p := .Data.Pages }}
+        <li class="card reveal" data-delay="{{ mod $i 4 }}00">
+          <a class="card__link" href="{{ $p.RelPermalink }}">
+            <time class="card__date">{{ $p.Date.Format "2006-01-02" }}</time>
+            <h3 class="card__title">{{ $p.Title }}</h3>
+            {{ with $p.Description }}<p class="card__desc">{{ . | plainify | truncate 90 }}</p>{{ end }}
+          </a>
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+{{ end }}

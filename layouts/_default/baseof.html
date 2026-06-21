@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.LanguageCode | default "zh" }}" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  {{/* 防暗黑模式 FOUC —— 必须最先执行 */}}
+  <script>
+    try {
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  {{ partial "site-head.html" . }}
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  {{ partial "site-header.html" . }}
+
+  <div class="mobile-backdrop" aria-hidden="true"></div>
+  <aside class="mobile-panel" id="mobile-menu" aria-label="移动端导航">
+    <ul class="mobile-panel__links">
+      {{ range .Site.Menus.main }}
+        <li><a class="mobile-panel__link" href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
+  </aside>
+
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "site-footer.html" . }}
+  <button class="to-top" aria-label="返回顶部" type="button">{{ partial "svg-icon.html" "arrow-up" }}</button>
+
+  {{/* 资源打包：CSS + JS */}}
+  {{ $css := resources.Get "css/site.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{ $js := resources.Get "js/site.js" | minify | fingerprint }}
+  <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+</body>
+</html>

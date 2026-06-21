@@ -1,0 +1,43 @@
+{{ define "main" }}
+  <article>
+    <header class="article-head container narrow">
+      <h1 class="article-title reveal">{{ .Title }}</h1>
+      <div class="article-meta reveal" data-delay="100">
+        {{ with .Date }}
+          <span>{{ partial "svg-icon.html" "calendar" }} {{ .Format "2006-01-02" }}</span>
+        {{ end }}
+        {{ if gt .ReadingTime 0 }}
+          <span>{{ partial "svg-icon.html" "clock" }} {{ .ReadingTime }} 分钟</span>
+        {{ end }}
+      </div>
+      {{ with .Params.tags }}
+        <div class="article-tags reveal" data-delay="200">
+          {{ range . }}<a class="tag" href="{{ "/tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+        </div>
+      {{ end }}
+    </header>
+
+    <div class="container narrow">
+      <div class="prose reveal" data-delay="150">
+        {{ .Content }}
+      </div>
+
+      {{ if or .Prev .Next }}
+        <nav class="pager reveal" aria-label="文章导航">
+          {{ with .Prev }}
+            <a class="pager__link prev" href="{{ .RelPermalink }}">
+              <div class="pager__label">← 上一篇</div>
+              <div class="pager__title">{{ .Title }}</div>
+            </a>
+          {{ end }}
+          {{ with .Next }}
+            <a class="pager__link next" href="{{ .RelPermalink }}">
+              <div class="pager__label">下一篇 →</div>
+              <div class="pager__title">{{ .Title }}</div>
+            </a>
+          {{ end }}
+        </nav>
+      {{ end }}
+    </div>
+  </article>
+{{ end }}

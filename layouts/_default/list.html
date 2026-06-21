@@ -1,0 +1,37 @@
+{{ define "main" }}
+  <header class="page-head container">
+    <h1 class="reveal">{{ .Title | default "文章" }}</h1>
+    {{ with .Description }}<p class="reveal" data-delay="100">{{ . }}</p>{{ end }}
+  </header>
+
+  <section class="section container">
+    {{ $pages := .Pages }}
+
+    {{ if gt (len $pages) 0 }}
+      <ul class="grid">
+        {{ range $i, $p := $pages }}
+          <li class="card reveal" data-delay="{{ mod $i 4 }}00">
+            <a class="card__link" href="{{ $p.RelPermalink }}">
+              <time class="card__date" datetime="{{ $p.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ $p.Date.Format "2006-01-02" }}
+              </time>
+              <h3 class="card__title">{{ $p.Title }}</h3>
+              {{ with $p.Description }}
+                <p class="card__desc">{{ . | plainify | truncate 90 }}</p>
+              {{ else }}
+                <p class="card__desc">{{ $p.Summary | plainify | truncate 90 }}</p>
+              {{ end }}
+              {{ with $p.Params.tags }}
+                <ul class="card__tags">
+                  {{ range first 3 . }}<li class="tag">#{{ . }}</li>{{ end }}
+                </ul>
+              {{ end }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p class="reveal" style="color:var(--text-2);font-style:italic">这里还没有内容。</p>
+    {{ end }}
+  </section>
+{{ end }}

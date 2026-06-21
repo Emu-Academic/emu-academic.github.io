@@ -1,0 +1,14 @@
+{{ define "main" }}
+  <header class="page-head container">
+    <h1 class="reveal">{{ .Title | default "标签" }}</h1>
+  </header>
+  <section class="section container narrow">
+    <ul class="tag-list">
+      {{ range .Data.Terms }}
+        <li class="reveal">
+          <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="count">{{ .Count }}</span></a>
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+{{ end }}

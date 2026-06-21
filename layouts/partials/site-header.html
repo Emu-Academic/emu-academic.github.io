@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="{{ .Site.BaseURL }}" aria-label="{{ .Site.Title }} 首页">
+      <span class="brand__mark">E</span>
+      <span>{{ .Site.Title }}</span>
+    </a>
+
+    <nav aria-label="主导航">
+      <ul class="nav__links">
+        {{ range .Site.Menus.main }}
+          <li>
+            <a class="nav__link" href="{{ .URL | relLangURL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>
+              {{ with .Pre }}{{ partial "svg-icon.html" . }}{{ end }}
+              <span>{{ .Name }}</span>
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-btn theme-toggle" type="button" aria-label="切换主题">
+        {{ partial "svg-icon.html" "sun" }}
+        {{ partial "svg-icon.html" "moon" }}
+      </button>
+      <button class="icon-btn menu-toggle" type="button" aria-label="打开菜单" aria-controls="mobile-menu" aria-expanded="false">
+        {{ partial "svg-icon.html" "bars" }}
+      </button>
+    </div>
+  </div>
+</header>

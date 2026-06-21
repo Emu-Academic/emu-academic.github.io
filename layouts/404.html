@@ -1,0 +1,7 @@
+{{ define "main" }}
+  <div class="container notfound">
+    <p class="notfound__code reveal">404</p>
+    <p class="reveal" data-delay="100">这个页面走丢了，但粉色还在。</p>
+    <a class="btn btn--primary reveal" data-delay="200" href="{{ .Site.BaseURL }}">回到首页 {{ partial "svg-icon.html" "arrow" }}</a>
+  </div>
+{{ end }}

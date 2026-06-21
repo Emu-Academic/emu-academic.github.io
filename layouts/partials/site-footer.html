@@ -1,0 +1,10 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {{ now.Format "2006" }} {{ .Site.Params.author.name | default .Site.Title }} · 用爱发电</p>
+    {{ with .Site.Menus.footer }}
+      <ul class="footer-links">
+        {{ range . }}<li><a href="{{ .URL | relLangURL }}">{{ .Name }}</a></li>{{ end }}
+      </ul>
+    {{ end }}
+  </div>
+</footer>
