@@ -1,71 +1,22 @@
-# -- Main Menu --
-# The main menu is displayed in the header at the top of the page.
-# Acceptable parameters are name, pageRef, page, url, title, weight.
-# 
-# The simplest menu configuration is to provide:
-#   name = The name to be displayed for this menu link
-#   pageRef = The identifier of the page or section to link to
+# ============================================================================
+#  便捷调整文件 —— Banner 顶部导航 (Nav) 链接
+# ----------------------------------------------------------------------------
+#  想增删顶部导航的链接？就在这里改。每条链接的字段：
+#    name     显示文字 (必填)
+#    url      外部链接地址   —— 与 pageRef 二选一
+#    pageRef  站内页面标识   —— 与 url 二选一 (例如 "posts")
+#    parent   父菜单名，用于做下拉子菜单 (留空则是一级菜单)
+#    pre      图标名 (如 "github")，可选
+#    weight   排序权重，数字越小越靠前
 #
-# By default the menu is ordered alphabetically. This can be
-# overridden by providing a weight value. The menu will then be
-# ordered by weight from lowest to highest.
+#  改完 push 到 main 即可，GitHub Actions 会自动构建部署。
+# ============================================================================
 
-#[[main]]
-#  name = "Blog"
-#  pageRef = "posts"
-#  weight = 10
-
-#[[main]]
-#  name = "Parent"
-#  weight = 20
-
-#[[main]]
-#  name = "example sub-menu 1"
-#  parent = "Parent"
-#  pageRef = "posts"
-#  weight = 20
-
-#[[main]]
-#  name = "example sub-menu 2"
-#  parent = "Parent"
-#  pageRef = "posts"
-#  weight = 20
-
-#[[subnavigation]]
-#  name = "An interesting topic"
-#  pageRef = "tags/interesting-topic"
-#  weight = 10
-
-#[[subnavigation]]
-#  name = "My Awesome Category"
-#  pre = "github"
-#  pageRef = "categories/awesome"
-#  weight = 20
-
-#[[main]]
-#  name = "Categories"
-#  pageRef = "categories"
-#  weight = 20
-
-#[[main]]
-#  name = "Tags"
-#  pageRef = "tags"
-#  weight = 30
-
+# -- 主导航 (顶部 Banner) --
 [[main]]
   name = "Blog"
   pageRef = "posts"
   weight = 10
-
-[[main]]
-  name = "Projects"
-  weight = 20
-
-[[main]]
-  name = "Monster Book"
-  parent = "Projects"
-  url = "https://medi.emu.ac.cn"
-  weight = 21
 
 [[main]]
   pre = "github"
@@ -74,17 +25,8 @@
   weight = 400
 
 
-# -- Footer Menu --
-# The footer menu is displayed at the bottom of the page, just before
-# the copyright notice. Configure as per the main menu above.
-
-
+# -- 页脚菜单 (留空则不显示) --
 # [[footer]]
 #   name = "Tags"
 #   pageRef = "tags"
 #   weight = 10
-
-# [[footer]]
-#   name = "Categories"
-#   pageRef = "categories"
-#   weight = 20

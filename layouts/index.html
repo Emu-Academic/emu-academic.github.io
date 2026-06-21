@@ -1,0 +1,84 @@
+{{/* 自定义主页 —— 覆盖 Blowfish 默认 index.html。
+    依赖 baseof.html 提供 header / footer / nav。
+    如需调整顶部导航链接，请改 config/_default/menus.zh.toml。 */}}
+{{ define "main" }}
+  {{ $author := .Site.Params.Author }}
+  {{ $recent := where .Site.RegularPages "Section" "posts" | first 6 }}
+
+  {{/* ============ Hero：全宽渐变，突破 body 容器 ============ */}}
+  <section class="ea-hero -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+    <div class="ea-hero__bg" aria-hidden="true"></div>
+    <div class="ea-hero__inner">
+      {{ with $author.image }}
+        {{ $img := resources.Get . }}
+        {{ if $img }}
+          <img class="ea-hero__avatar" src="{{ ($img.Fill "256x256 q96").RelPermalink }}"
+               alt="{{ $author.name | default $.Site.Title }}" width="128" height="128" loading="eager" decoding="async" />
+        {{ end }}
+      {{ end }}
+
+      <p class="ea-hero__kicker">{{ $author.headline | default .Site.Params.description | emojify }}</p>
+      <h1 class="ea-hero__title">{{ $author.name | default .Site.Title | emojify }}</h1>
+      {{ with $author.bio }}
+        <p class="ea-hero__bio">{{ . | markdownify }}</p>
+      {{ end }}
+
+      {{/* 社交链接 (在 languages.zh.toml 的 [params.author] links 中配置) */}}
+      {{ with $author.links }}
+        <div class="ea-hero__links">
+          {{ range $links := . }}
+            {{ range $name, $url := $links }}
+              <a class="ea-hero__link" href="{{ $url }}" target="_blank" rel="me noopener noreferrer" aria-label="{{ $name | title }}">
+                {{ partial "icon.html" $name }}
+              </a>
+            {{ end }}
+          {{ end }}
+        </div>
+      {{ end }}
+
+      <div class="ea-hero__cta">
+        <a class="ea-btn ea-btn--primary" href="{{ "posts" | relURL }}">阅读博客 →</a>
+        <a class="ea-btn ea-btn--ghost" href="{{ "index.xml" | relURL }}">订阅 RSS</a>
+      </div>
+    </div>
+  </section>
+
+  {{/* ============ 最近文章 ============ */}}
+  <section class="ea-recent">
+    <header class="ea-recent__head">
+      <h2 class="ea-recent__title">最新文章</h2>
+      {{ if gt (len $recent) 0 }}
+        <a class="ea-recent__more" href="{{ "posts" | relURL }}">查看全部 →</a>
+      {{ end }}
+    </header>
+
+    {{ if gt (len $recent) 0 }}
+      <ul class="ea-grid">
+        {{ range $recent }}
+          <li class="ea-card">
+            <a class="ea-card__link" href="{{ .RelPermalink }}">
+              <time class="ea-card__date" datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date.Format "2006-01-02" }}
+              </time>
+              <h3 class="ea-card__title">{{ .Title | emojify }}</h3>
+              {{ with .Description }}
+                <p class="ea-card__desc">{{ . | plainify | truncate 90 }}</p>
+              {{ else }}
+                <p class="ea-card__desc">{{ .Summary | plainify | truncate 90 }}</p>
+              {{ end }}
+              {{ with .Params.tags }}
+                <ul class="ea-card__tags">
+                  {{ range first 3 . }}
+                    <li class="ea-card__tag">#{{ . }}</li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p class="ea-recent__empty">还没有文章，敬请期待。</p>
+    {{ end }}
+  </section>
+{{ end }}
