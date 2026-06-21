@@ -1,0 +1,58 @@
+{{/* 业务卡片区 —— 数据来自 data/business.toml
+    增删卡片请改 data/business.toml，不要改这里。 */}}
+{{ with .Site.Data.business }}
+  {{ with .item }}
+    <section class="section biz container">
+      <header class="section__head reveal">
+        <h2 class="section__title">业务</h2>
+      </header>
+
+      <ul class="grid">
+        {{ range $i, $b := . }}
+          {{ $ext := or (strings.HasPrefix $b.url "http://") (strings.HasPrefix $b.url "https://") }}
+          <li class="card biz-card reveal" data-delay="{{ mod $i 4 }}00">
+            <a class="biz-card__link" href="{{ $b.url | safeURL }}"
+               {{ if $ext }}target="_blank" rel="noopener noreferrer"{{ end }}>
+              <div class="card__media">
+                {{ with $b.image }}
+                  {{ $remote := or (strings.HasPrefix . "http://") (strings.HasPrefix . "https://") }}
+                  {{ if $remote }}
+                    {{/* 外链图：直接引用，不依赖构建时下载；容器固定 16:9 不会抖 */}}
+                    <img src="{{ . | safeURL }}"
+                         referrerpolicy="no-referrer"
+                         alt="{{ $b.name }}"
+                         loading="lazy" decoding="async">
+                  {{ else }}
+                    {{/* 本地图：走 Hugo 资源管线，生成响应式 srcset */}}
+                    {{ $img := resources.Get . }}
+                    {{ if $img }}
+                      {{ $thumb := $img.Fill "600x340 q80" }}
+                      <img src="{{ $thumb.RelPermalink }}"
+                           srcset="{{ ($img.Fill "300x170 q75").RelPermalink }} 300w,
+                                   {{ $thumb.RelPermalink }} 600w"
+                           sizes="(max-width: 600px) 100vw, 300px"
+                           alt="{{ $b.name }}"
+                           width="600" height="340"
+                           loading="lazy" decoding="async">
+                    {{ else }}
+                      <div class="biz-card__placeholder" aria-hidden="true"></div>
+                    {{ end }}
+                  {{ end }}
+                {{ else }}
+                  <div class="biz-card__placeholder" aria-hidden="true"></div>
+                {{ end }}
+              </div>
+              <div class="biz-card__body">
+                <h3 class="biz-card__title">{{ $b.name }}</h3>
+                {{ with $b.description }}
+                  <p class="card__desc">{{ . }}</p>
+                {{ end }}
+                <span class="biz-card__cta">前往 {{ partial "svg-icon.html" "arrow" }}</span>
+              </div>
+            </a>
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+{{ end }}
