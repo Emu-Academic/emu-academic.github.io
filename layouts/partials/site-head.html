@@ -5,6 +5,7 @@
 <link rel="canonical" href="{{ .Permalink }}">
 <meta name="theme-color" content="#F2C4DF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#120F16" media="(prefers-color-scheme: dark)">
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $desc }}">
@@ -28,6 +29,6 @@
 <link rel="preconnect" href="https://github.com">
 {{ if .IsHome }}
   {{ with resources.Get "img/headshot.png" }}
-    <link rel="preload" as="image" href="{{ (.Fill "112x112 q96").RelPermalink }}">
+    <link rel="preload" as="image" href="{{ (.Fill "224x224 q96").RelPermalink }}">
   {{ end }}
 {{ end }}
