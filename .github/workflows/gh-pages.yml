@@ -32,6 +32,9 @@ jobs:
       - name: Build
         run: hugo --minify
 
+      - name: Write CNAME
+        run: echo "emu.ac.cn" > public/CNAME
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         if: ${{ github.ref == 'refs/heads/main' }}
