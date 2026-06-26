@@ -16,9 +16,3 @@
 #  改完 push 到 main 即自动构建部署。
 #  想加新图：把图片丢进 assets/business/ 目录，再 image = "business/你的图.png"
 # ============================================================================
-
-[[item]]
-  name = "Monster Book"
-  url = "https://medi.emu.ac.cn"
-  image = "https://mmb.qwq.us.kg/img/humor.png"
-  description = "怪物们的妖怪书"
