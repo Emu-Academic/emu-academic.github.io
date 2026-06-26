@@ -16,3 +16,15 @@
 #  改完 push 到 main 即自动构建部署。
 #  想加新图：把图片丢进 assets/business/ 目录，再 image = "business/你的图.png"
 # ============================================================================
+
+[[item]]
+  name = "风笑梦的 SoVITS 变声器"
+  url = "https://chitsanfei-sovits-emu-voice-changer.hf.space"
+  image = "https://storage.sekai.best/sekai-jp-assets/comic/one_frame/comic_0065.png"
+  description = "SoVITS 语音转换"
+
+[[item]]
+  name = "风笑梦的 RVC 变声器"
+  url = "https://chitsanfei-rvc-emu-voice-changer.hf.space"
+  image = "https://storage.sekai.best/sekai-jp-assets/comic/one_frame/comic_0021.png"
+  description = "RVC 语音转换"
